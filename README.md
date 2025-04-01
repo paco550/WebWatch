@@ -2,6 +2,10 @@
 
 **1️⃣ Introducción**
 
+![Barra de Progreso](ruta/a/tu/barra_de_progreso.png)
+
+Progreso actual: 7% completado.
+
 * **Descripción:**
     Una plataforma que permite monitorizar sitios web en busca de caídas, errores SEO, problemas de rendimiento y vulnerabilidades de seguridad.
 * **Objetivo:**
