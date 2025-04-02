@@ -1,4 +1,6 @@
-Django
-redis
-celery
-django-celery-beat
+Django>=3.2,<4.0
+djangorestframework>=3.12.0
+redis>=4.0.0
+celery>=5.1.0
+django-celery-beat>=2.2.0
+requests>=2.25.0

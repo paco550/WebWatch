@@ -1,0 +1,33 @@
+# Archivos de Python
+*.pyc
+__pycache__/
+*.pyd
+*.egg-info/
+dist/
+build/
+.env
+venv/
+*.log
+# Archivos específicos de Django
+*.sqlite3
+media/  # Opcional: si no quieres rastrear los archivos subidos por el usuario
+static/ # Archivos estáticos recolectados
+# Archivos del sistema operativo y editores
+.DS_Store
+Thumbs.db
+*.orig
+*.swp
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Otros archivos y directorios que quieras ignorar
+# Por ejemplo, archivos de configuración local:
+settings.py
+docker-compose.override.yml
+Dockerfile
+# Archivos de configuración de IDEs
+.iml
+# Archivos de configuración de entornos virtuales
+.venv

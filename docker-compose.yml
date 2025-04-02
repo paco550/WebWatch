@@ -1,0 +1,40 @@
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: always
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./webwath:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    restart: always
+
+  celery:
+    build: .
+    command: celery -A webwath worker -l info  # Corregido de webwath
+    volumes:
+      - ./webwath:/code
+    depends_on:
+      - redis
+    restart: always
+
+  celery-beat:
+    build: .
+    command: celery -A webwath beat -l info
+    volumes:
+      - ./webwath:/code
+    depends_on:
+      - redis
+    restart: always
+
+volumes:
+  redis_data:
