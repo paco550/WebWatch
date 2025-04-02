@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +40,30 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',  # Añadido
     'monitor',
+    'django_celery_beat',  # Añadido para Celery Beat
 ]
+
+# Configuración de Redis y Celery
+REDIS_HOST = 'redis'  # Nombre del servicio en docker-compose
+REDIS_PORT = 6379
+
+# Celery
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'  # Ajusta a tu zona horaria si es necesario
+
+# Configuración de Celery Beat
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+CELERY_BEAT_SCHEDULE = {
+    'check-all-websites-every-5-minutes': {
+        'task': 'monitor.tasks.check_all_websites',
+        'schedule': crontab(minute='*/5'),  # Cada 5 minutos
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
